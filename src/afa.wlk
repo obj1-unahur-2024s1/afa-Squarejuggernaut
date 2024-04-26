@@ -1,34 +1,30 @@
+import jugador.*
+import estadio.*
+
 object afa {
 	var precioEntrada = 10000
 	const costoLogistica = 10000000
-	const gananciaNetaPorPartido = self.recaudacion() - self.costosPorElPartido()
+	var gananciaNetaPorPartido
 	var estadoArcas = 0
 	
-	method entradasAVender() = bombonera.capacidad() * messi.popularidad()
-	
+	method entradasAVender(estadio, jugador) = estadio.capacidad() * jugador.popularidad()
+
 	method costoLogistica() = costoLogistica
 	
 	method gananciaNetaPorPartido() = gananciaNetaPorPartido
 	
 	method estadoArcas() = estadoArcas
 	
-	method recaudacion() = self.entradasAVender() * precioEntrada
+	method recaudacion(estadio, jugador) = self.entradasAVender(estadio, jugador) * precioEntrada
 	
-	method costosPorElPartido() = self.costoLogistica() + messi.viaticos() + bombonera.valorAlquiler()
+	method costosPorElPartido(estadio, jugador) = self.costoLogistica() + jugador.viaticos() + estadio.valorAlquiler()
 	
-	method realizarPartidoHomenaje() {
-		estadoArcas += self.recaudacion() - self.costosPorElPartido()
+	method realizarPartidoHomenaje(estadio, jugador) {
+		gananciaNetaPorPartido = self.recaudacion(estadio, jugador) - self.costosPorElPartido(estadio, jugador)
+		estadoArcas += self.recaudacion(estadio, jugador) - self.costosPorElPartido(estadio, jugador)
 	}
-}
 
-object bombonera {
-	const property capacidad = 50000
-	var property valorAlquiler = 7000000
-}
 
-object messi {
-	var popularidad = 0.98
-	var property viaticos = 5000000
 
-	method popularidad() = popularidad
+
 }
