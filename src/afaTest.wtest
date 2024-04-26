@@ -1,0 +1,14 @@
+import afa.*
+
+test "se estima vender 49000 entradas" {
+	assert.equals(49000, afa.entradasAVender())
+}
+
+test "se estima recaudar 490000000 por la venta de entradas" {
+	assert.equals(490000000, afa.gananciaNeta())
+}
+
+test "Realizar el partido, efectuando los correspondientes movimientos de dinero" {
+	afa.realizarPartidoHomenaje()
+	assert.equals(468000000, afa.estadoArcas())
+}
