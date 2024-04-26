@@ -2,25 +2,25 @@ import afa.*
 import estadio.*
 import jugador.*
 
-test "se estima vender 49000 entradas para partido de messi en la bombonera" {
+test "calcular la cantidad de entradas a vender para partido de messi en la bombonera" {
 	assert.equals(49000, afa.entradasAVender(bombonera, messi))
 }
 
-test "se estima recaudar 490000000 por la venta de entradas del partido de messi en la bombonera" {
+test "calcular la recaudacion por la venta de entradas del partido de messi en la bombonera" {
 	assert.equals(490000000, afa.recaudacion(bombonera, messi))
 }
 
-test "Calcular cuanto sería la ganancia neta del partido homenaje a messi en la bombonera" {
+test "calcular la ganancia neta del partido homenaje a messi en la bombonera" {
 	afa.realizarPartidoHomenaje(bombonera, messi)
 	assert.equals(468000000, afa.gananciaNetaPorPartido())
 }
 
-test "Realizar el partido a messi en la bombonera, efectuando los correspondientes movimientos de dinero" {
+test "realizar el partido a messi en la bombonera, efectuando los correspondientes movimientos de dinero" {
 	afa.realizarPartidoHomenaje(bombonera, messi)
 	assert.equals(468000000, afa.estadoArcas())
 }
 
-test "Averiguar cual es el estado actual de las arcas de la afa si se haca mas de un partido de messi en la bombonera" {
+test "averiguar cual es el estado actual de las arcas de la afa si se haca mas de un partido de messi en la bombonera" {
 	afa.realizarPartidoHomenaje(bombonera, messi)
 	afa.realizarPartidoHomenaje(bombonera, messi)
 	assert.equals(468000000, afa.gananciaNetaPorPartido())
@@ -43,4 +43,24 @@ test "estado de las arcas de afa si se hace un partido de ronaldo en el monument
 	afa.realizarPartidoHomenaje(monumental, ronaldo)
 	afa.realizarPartidoHomenaje(bombonera, mbappe)
 	assert.equals(649400000, afa.estadoArcas())
+}
+
+test "calcular el precio de las entradas si hay inflacion" {
+	afa.setInflacion(120)
+	assert.equals(22000, afa.precioEntrada())
+}
+
+test "messi puede perder popularidad si opina del nuevo presidentes" {
+	messi.pasaronCosas()
+	assert.equals(0.90, messi.popularidad())
+}
+
+test "mbappé puede cumplir años" {
+	mbappe.pasaronCosas()
+	assert.equals(26, mbappe.edad())
+}
+
+test "ronaldo reduce sus viaticos si se va a jugar a la antartida" {
+	ronaldo.pasaronCosas()
+	assert.equals(2000000, ronaldo.viaticos())
 }

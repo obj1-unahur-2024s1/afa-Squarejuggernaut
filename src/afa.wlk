@@ -6,18 +6,26 @@ object afa {
 	const costoLogistica = 10000000
 	var gananciaNetaPorPartido
 	var estadoArcas = 0
+	var inflacion = 0
 	
 	method entradasAVender(estadio, jugador) = estadio.capacidad() * jugador.popularidad()
-
-	method costoLogistica() = costoLogistica
 	
 	method gananciaNetaPorPartido() = gananciaNetaPorPartido
 	
 	method estadoArcas() = estadoArcas
 	
-	method recaudacion(estadio, jugador) = self.entradasAVender(estadio, jugador) * precioEntrada
+	method setInflacion(cantidad) {
+		inflacion = cantidad / 100
+	}
 	
-	method costosPorElPartido(estadio, jugador) = self.costoLogistica() + jugador.viaticos() + estadio.valorAlquiler()
+	method precioEntrada() {
+		precioEntrada += precioEntrada * inflacion
+		return precioEntrada
+	}
+	
+	method recaudacion(estadio, jugador) = self.entradasAVender(estadio, jugador) * self.precioEntrada()
+	
+	method costosPorElPartido(estadio, jugador) = costoLogistica + jugador.viaticos() + estadio.valorAlquiler()
 	
 	method realizarPartidoHomenaje(estadio, jugador) {
 		gananciaNetaPorPartido = self.recaudacion(estadio, jugador) - self.costosPorElPartido(estadio, jugador)
