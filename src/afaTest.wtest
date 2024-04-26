@@ -5,10 +5,21 @@ test "se estima vender 49000 entradas" {
 }
 
 test "se estima recaudar 490000000 por la venta de entradas" {
-	assert.equals(490000000, afa.gananciaNeta())
+	assert.equals(490000000, afa.recaudacion())
+}
+
+test "Calcular cuanto sería la ganancia neta del partido homenaje" {
+	assert.equals(468000000, afa.gananciaNetaPorPartido())
 }
 
 test "Realizar el partido, efectuando los correspondientes movimientos de dinero" {
 	afa.realizarPartidoHomenaje()
 	assert.equals(468000000, afa.estadoArcas())
+}
+
+test "Averiguar cual es el estado actual de las arcas de la afa si se haca mas de un partido" {
+	afa.realizarPartidoHomenaje()
+	afa.realizarPartidoHomenaje()
+	assert.equals(468000000, afa.gananciaNetaPorPartido())
+	assert.equals(936000000, afa.estadoArcas())
 }
